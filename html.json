@@ -1,0 +1,199 @@
+{
+	"WP-SECTION": {
+        "prefix": "wp-section",
+        "body": [
+            "<section class=\"$1\">",
+            "    <div class=\"contenedor\">",
+			"		$2",
+            "    </div>",
+            "</section>"
+        ],
+        "description": "Snippet para estructura section-hero"
+    },
+	"WP-GET-FIELD": {
+        "prefix": "wp-get-field",
+        "body": [
+            "<?php echo get_field('$1') ?>"
+        ],
+        "description": "Snippet para get_field"
+    },
+	"WP-REPEATER": {
+        "prefix": "wp-repeater",
+        "body": [
+            "<?php if(have_rows('$1')): ?>",
+			"	<?php while(have_rows('$1')): the_row(); ?>",
+			"	<?php endwhile; ?>",
+			"<?php endif; ?>"
+        ],
+        "description": "Snippet para repeater"
+    },
+	"WP-SPLIDE-4-REPEATER-IMAGES": {
+		"prefix": "wp-splde-4-repeater-images",
+		"body": [
+			"<?php if(have_rows('$1')): ?>",
+			"	<div class='splide'>",
+			"		<div class='splide__track w-100'>",
+			"			<ul class='splide__list w-100'>",
+			"				<?php while(have_rows('$1')): the_row(); ?>",
+			"				<li class='splide__slide w-100'>",
+			"					<?php if(!empty(get_sub_field('$2'))): ?>",
+			"					<img",
+			"						src='<?php echo get_sub_field('$2') ?>'",
+			"						alt='<?php echo get_sub_field('$2') ?>'",
+			"						title='<?php echo get_sub_field('$2') ?>'",
+			"						height='<?php echo get_sub_field('$2') ?>'",
+			"						width='<?php echo get_sub_field('$2') ?>'",
+			"					>",
+			"					<?php endif; ?>",
+			"				</li>",
+			"				<?php endwhile; ?>",
+			"			</ul>",
+			"		</div>",
+			"	</div>",
+			"<?php endif; ?>"
+		],
+		"description": "Snippet para sliders de solo imagenes"
+	},
+	"WP-SPLIDE-4-REPEATER-CONTENT": {
+		"prefix": "wp-splde-4-repeater-content",
+		"body": [
+			"<?php if(have_rows('$1')): ?>",
+			"	<div class='splide'>",
+			"		<div class='splide__track w-100'>",
+			"			<ul class='splide__list w-100'>",
+			"				<?php while(have_rows('$1')): the_row(); ?>",
+			"				<li class='splide__slide w-100'>",
+			"					<?php echo get_sub_field('$2') ?>",
+			"				</li>",
+			"				<?php endwhile; ?>",
+			"			</ul>",
+			"		</div>",
+			"	</div>",
+			"<?php endif; ?>"
+		],
+		"description": "Snippet para sliders con contenido"
+	},
+	"WP-MENU-NAV": {
+		"prefix": "wp-menu-nav",
+		"body": [
+			"<?php wp_nav_menu(array('theme_location' => '$1', 'container_class' => '', 'menu_class' => 'ul_menu')); ?>"
+		],
+		"description": "Snippet para la creacion de menús"
+	},
+	"WP-ADMIN-AJAX": {
+		"prefix": "wp-admin-ajax",
+		"body": [
+			"<input type=\"hidden\" name=\"admin_ajax\" value=\"<?php echo admin_url('admin-ajax.php'); ?>\">",
+			"<input type=\"hidden\" name=\"uri\" value=\"<?php echo home_url(add_query_arg(array(), $$wp->request)); ?>\">"
+		],
+		"description": "Snippet para traer las rutas Ajax y Ruta Absoluta para la interaccion desde el JS hasta el functions.php"
+	},
+	"WOO-GET-ALL-PRODUCTS": {
+		"prefix": "woo-get-all-products",
+		"body": [
+			"<?php",
+			"	global $$wp_query, $$paged;",
+			"	$$actualPage = $$paged ? $$paged : 1;",
+			"	$$wp_query = new WP_Query( array(",
+			"		'post_type' => 'product',",
+			"		'post_status' => 'publish',",
+			"		'posts_per_page' => $1,",
+			"		'paged' => $$paged",
+			"	));",
+			"?>"
+		],
+		"description": "Snippet/query para traer todas los productos creados desde Woocommerce."
+	},
+	"WOO-LIST-ALL-PRODUCTS": {
+		"prefix": "woo-list-all-products",
+		"body": [
+			"<?php if ($$wp_query->have_posts()) : ?>",
+			"	<?php while($$wp_query->have_posts()) : $$wp_query->the_post(); ?>",
+			"	<?php",
+			"		$$product_id = get_the_ID(); // Obtiene el ID del producto",
+			"		$$product = wc_get_product($$product_id);",
+			"		$$permalink = get_permalink();",
+			"		",
+			"		// Obtiene el precio regular y el precio en oferta",
+			"		$$regular_price = $$product->get_regular_price();",
+			"		$$sale_price = $$product->get_sale_price();",
+			"		",
+			"		// Verifica si el producto está en oferta",
+			"		$$is_on_sale = $$product->is_on_sale();",
+			"		$$thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail');",
+			"	?>",
+			"	$1"
+			"	<?php endwhile; ?>",
+			"<?php else: ?>",
+			"	<p class=\"no-one\">No hay productos disponibles</p>",
+			"<?php endif; ?>",
+			"<?php wp_reset_postdata();wp_reset_query(); ?>"
+		],
+		"description": "Snippet para listar todas los productos - Se acomoda a tu query antes puesto."
+	},
+	"WOO-GET-ALL-CATEGORIES": {
+		"prefix": "woo-get-all-categories",
+		"body": [
+			"<?php",
+			"$$categories = get_terms(array(",
+			"    'taxonomy' => 'product_cat', // Taxonomía de categorías de productos",
+			"    'hide_empty' => false, // Incluye categorías vacías",
+			"    'exclude' => array($1), // Excluye la categoría 'Sin categoría' con su ID",
+			"));",
+			"?>"
+		],
+		"description": "Snippet/query para traer todas las categorías de productos sin importar que estén vacías en PHP y excluir la categoria 'Sin categoría'"
+	},
+	"WOO-LIST-ALL-CATEGORIES": {
+		"prefix": "woo-list-all-categories",
+		"body": [
+			"<?php if(!empty($$categories)): ?>",
+			"	<?php foreach($$categories as $$category): ?>",
+			"	<?php ",
+			"		$$category_name = esc_attr($$category->name); // Obtiene el nombre",
+			"		$$ategory_thumbnail_id = get_term_meta($$category->term_id, 'thumbnail_id', true); // Obtiene el ID de la miniatura",
+			"		$$category_thumbnail = wp_get_attachment_image_url($$category_thumbnail_id, 'thumbnail'); // Obtiene la miniatura",
+			"		$$category_permalink = esc_url(get_term_link($$category)); // Obtiene el permalink",
+			"	?> ",
+			"	<?php endforeach; ?>",
+			"<?php endif; ?>",
+			"<?php wp_reset_postdata();wp_reset_query(); ?>"
+		],
+		"description": "Snippet para listar todas las categorías de productos - Se acomoda a tu query antes puesto."
+	},
+	"WP-GET-ALL-POSTS": {
+		"prefix": "wp-get-all-posts",
+		"body": [
+			"<?php",
+			"	global $$wp_query;",
+			"	$$wp_query = new WP_Query( array(",
+			"		'post_type' => 'post',",
+			"		'post_status' => 'publish',",
+			"		'posts_per_page' => 999",
+			"	));",
+			"?>"
+		],
+		"description": "Snippet/query para traer todas los post creados desde el panel de WordPresss."
+	},
+	"WP-LIST-ALL-POSTS": {
+		"prefix": "wp-list-all-posts",
+		"body": [
+			"<?php if(have_posts()): ?>",
+			"	<?php while(have_posts()): the_post(); ?>",
+			"		<?php if(has_post_thumbnail()): ?>",
+			"		<?php ",
+			"			$$thumbID = get_post_thumbnail_id( $$post->ID );",
+			"			$$thumbnail = wp_get_attachment_image_src( $$thumbID, 'thumbnail' )[0];",
+			"			$$name = get_the_title();",
+			"			$$excerpt = get_the_excerpt();",
+			"			$$permalink = get_the_permalink();",
+			"		?> ",
+			"		$1"
+			"		<?php endif; ?>",
+			"	<?php endwhile; ?>",
+			"<?php endif; ?>",
+			"<?php wp_reset_postdata();wp_reset_query(); ?>"
+		],
+		"description": "Snippet para listar todas los post de WordPress - Se acomoda a tu query antes puesto."
+	},
+}

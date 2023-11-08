@@ -1,0 +1,49 @@
+{
+	"WOO-JOIN-FIRST-AND-LAST-IN-FULLNAME": {
+		"prefix": "woo-join-first-and-last-in-fullname",
+		"body": [
+			"// Combina el nombre completo en los datos del pedido de WooCommerce",
+			"add_filter('woocommerce_checkout_posted_data', 'custom_checkout_fields');",
+			"function custom_checkout_fields($$data) {",
+			"	$$full_name = sanitize_text_field($$_POST['billing_full_name']);",
+			"	// Divide el nombre completo en nombre y apellido",
+			"	$$name_parts = explode(' ', $$full_name);",
+			"	$$data['billing_first_name'] = $$name_parts[0];",
+			"	$$data['billing_last_name'] = isset($$name_parts[1]) ? $$name_parts[1] : '';",
+			"	",
+			"	return $$data;",
+			"}"
+		],
+		"description": "Snippet por si en el checkout en lugar de Firstname y Lastname pide solo Fullname, esta función toma el fullname, lo divide en los campos antes mencionados y los guarda."
+	},
+	"WOO-WP-ADD-OTHER-FIELD-PRODUCT-CATEGORY": {
+		"prefix": "woo-wp-add-other-field-product-category",
+		"body": [
+			"// Función para agregar un campo personalizado a la página de edición de categoría",
+			"function agregar_campo_banner_categoria() {",
+			"    // Obtén el ID de la categoría actual",
+			"    $$term_id = isset($$_GET['tag_ID']) ? $$_GET['tag_ID'] : '';",
+			"		",
+			"    // Obtén el valor actual del campo 'Banner' si existe",
+			"    $$banner_value = get_term_meta($$term_id, 'banner', true);",
+			"		",
+			"    // Mostrar el campo personalizado",
+			"    ?>",
+			"    <tr class=\"form-field\">",
+			"        <th scope=\"row\" valign=\"top\">",
+			"            <label for=\"banner\">Banner</label>",
+			"        </th>",
+			"        <td>",
+			"            <input type=\"text\" name=\"banner\" id=\"banner\" value=\"<?php echo esc_attr($$banner_value); ?>\" />",
+			"            <p class=\"description\">",
+			"                Agrega la URL de la imagen del banner.",
+			"                <small style=\"display:block\">Previo: subir la imagen en Medios/Multimedia y obtener el enlace</small>",
+			"            </p>",
+			"        </td>",
+			"    </tr>",
+			"    <?php",
+			"}"
+		],
+		"description": "Snippet por si en el checkout en lugar de Firstname y Lastname pide solo Fullname, esta función toma el fullname, lo divide en los campos antes mencionados y los guarda."
+	},
+}
