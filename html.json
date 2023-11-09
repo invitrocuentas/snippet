@@ -259,8 +259,8 @@
 		],
 		"description": "Snippet para partes repetidas en toda la web"
 	},
-	"LINK": {
-		"prefix": "link",
+	"WP-LINK": {
+		"prefix": "wp-link",
 		"body": [
 			"<a href=\"<?php echo esc_url(home_url('$1')); ?>\" title=\"$2\">$2</a>"
 		],
