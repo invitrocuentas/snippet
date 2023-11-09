@@ -17,5 +17,37 @@
 			"}"
 		],
 		"description": "Snippet para inicializar y montar un slider de SplideJS"
-	}
+	},
+	"JS-MOUNT-SLIDER-MULTIPLE": {
+		"prefix": "js-mount-slider-multi",
+		"body": [
+			"if(document.querySelector('$1') && document.querySelector('$2')){",
+			"	let slider1 = new Splide('$1', {",
+			"		type: 'splide',",
+			"		arrows: false,",
+			"		pagination: false,",
+			"		perPage: 1,",
+			"		perMove: 1,",
+			"		breakpoints: {",
+			"		}",
+			"	});",
+			"	",
+			"	let slider2 = new Splide('$2', {",
+			"		type: 'splide',",
+			"		isNavigation: true,",
+			"		arrows: false,",
+			"		pagination: false,",
+			"		perPage: 1,",
+			"		perMove: 1,",
+			"		breakpoints: {",
+			"		}",
+			"	});",
+			"	",
+			"	slider1.sync(slider2);",
+			"	slider1.mount();",
+			"	slider2.mount();",
+			"}"
+		],
+		"description": "Snippet para inicializar y montar sliders que se relacionen entre ellos."
+	},
 }

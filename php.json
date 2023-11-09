@@ -46,4 +46,73 @@
 		],
 		"description": "Snippet por si en el checkout en lugar de Firstname y Lastname pide solo Fullname, esta función toma el fullname, lo divide en los campos antes mencionados y los guarda."
 	},
+	"WOO-BILLING-FIELDS": {
+		"prefix": "woo-billing-fields",
+		"body": [
+			"function editing_billing_fields($$fields){ $1",
+			"	",
+			"	unset($$fields['billing_company']); // Quitar campos del formulario ",
+			"	",
+			"	$$fields['billing_dni'] = array( // Agregar campos personalizados ",
+			"		'label' => __('DNI', 'woocommerce'),",
+			"		'placeholder' => _x('DNI', 'placeholder', 'woocommerce'),",
+			"		'required' => true,",
+			"		'class' => array('form-row-wide'),",
+			"		'clear' => true,",
+			"	);",
+			"	",
+			"	$$fields['billing_phone']['label'] = 'Celular'; // Cambiar alguno de los atributos de los campos ",
+			"	$$fields['billing_phone']['placeholder'] = 'Celular';",
+			"	",
+			"	return $$fields;",
+			"}",
+			"add_filter('woocommerce_billing_fields', 'editing_billing_fields', 900);"
+		],
+		"description": "Snippet para editar los campos del formulario Billing de Woocommerce"
+	},
+	"WOO-SHIPPING-FIELDS": {
+		"prefix": "woo-shipping-fields",
+		"body": [
+			"function editing_shipping_fields($$fields){ $1",
+			"	",
+			"	unset($$fields['shipping_company']); // Quitar campos del formulario ",
+			"	",
+			"	$$fields['shipping_dni'] = array( // Agregar campos personalizados ",
+			"		'label' => __('DNI', 'woocommerce'),",
+			"		'placeholder' => _x('DNI', 'placeholder', 'woocommerce'),",
+			"		'required' => true,",
+			"		'class' => array('form-row-wide'),",
+			"		'clear' => true,",
+			"	);",
+			"	",
+			"	$$fields['shipping_phone']['label'] = 'Celular'; // Cambiar alguno de los atributos de los campos ",
+			"	$$fields['shipping_phone']['placeholder'] = 'Celular';",
+			"	",
+			"	return $$fields;",
+			"}",
+			"add_filter('woocommerce_shipping_fields', 'editing_shipping_fields', 900);"
+		],
+		"description": "Snippet para editar los campos del formulario Shipping de Woocommerce"
+	},
+	"WOO-NAVIGATION-ACCOUNT": {
+		"prefix": "woo-navigation-account",
+		"body": [
+			"function editing_navigation_account($$items) {",
+			"	// Agregar un elemento personalizado al menú de 'Mi cuenta'",
+			"	$$items['personal-information'] = __('Datos personales', 'text-domain');",
+			"",
+			"	// Eliminar un elemento existente del menú de 'Mi cuenta'",
+			"	unset($$items['downloads']);",
+			"",
+			"	// Cambiando los labels",
+			"	$$items['edit-address'] = 'Dirección';",
+			"	$$items['orders'] = 'Mis compras';",
+			"	$$items['customer-logout'] = 'Cerrar sesión';",
+			"",
+			"	return $$items;",
+			"}",
+			"add_filter('woocommerce_account_menu_items', 'editing_navigation_account');"
+		],
+		"description": "Snippet para editar los enlaces de la navegacion en la página de Mi Cuenta"
+	},
 }

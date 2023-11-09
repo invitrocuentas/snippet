@@ -4,11 +4,13 @@
         "body": [
             "<section class=\"$1\">",
             "    <div class=\"contenedor\">",
-			"		$2",
+			"		<div class=\"row\">",
+			"			$2",
+			"		</div>",
             "    </div>",
             "</section>"
         ],
-        "description": "Snippet para estructura section-hero"
+        "description": "Snippet para estructura de 2 columnas"
     },
 	"WP-GET-FIELD": {
         "prefix": "wp-get-field",
@@ -16,6 +18,17 @@
             "<?php echo get_field('$1') ?>"
         ],
         "description": "Snippet para get_field"
+    },
+	"WP-OPTION": {
+        "prefix": "wp-option",
+        "body": [
+            "<?php if (!empty(get_option('$1'))) : ?>",
+            "<a href=\"<?php echo get_option('$1') ?>\" target=\"_blank\" title=\"$2\">",
+			"	$3",
+			"</a>",
+            "<?php endif; ?>"
+        ],
+        "description": "Snippet para get_option"
     },
 	"WP-REPEATER": {
         "prefix": "wp-repeater",
@@ -26,6 +39,19 @@
 			"<?php endif; ?>"
         ],
         "description": "Snippet para repeater"
+    },
+	"WP-IMAGE": {
+        "prefix": "wp-image",
+        "body": [
+            "<img ",
+            "    src=\"<?php echo get_field('$1')['url'] ?>\" ",
+            "    title=\"<?php echo get_field('$1')['title'] ?>\" ",
+            "    alt=\"<?php echo get_field('$1')['alt'] ?>\" ",
+            "    width=\"<?php echo get_field('$1')['width'] ?>\" ",
+            "    height=\"<?php echo get_field('$1')['height'] ?>\" ",
+            "    loading=\"lazy\"> "
+        ],
+        "description": "Snippet para imagen"
     },
 	"WP-SPLIDE-4-REPEATER-IMAGES": {
 		"prefix": "wp-splde-4-repeater-images",
@@ -195,5 +221,67 @@
 			"<?php wp_reset_postdata();wp_reset_query(); ?>"
 		],
 		"description": "Snippet para listar todas los post de WordPress - Se acomoda a tu query antes puesto."
+	},
+	"WP-SEARCH-QUERY": {
+		"prefix": "wp-search-query",
+		"body": [
+			"<?php",
+			"	$$s = get_search_query();",
+			"	$$results = new WP_Query(array(",
+			"		'post_type' => '$1',",
+			"		'post_status' => 'publish',",
+			"		'posts_per_page' => -1,",
+			"		's' => $$s,",
+			"	));",
+			"	",
+			"	$$count_result = $$results->found_posts;",
+			"?>"
+		],
+		"description": "Snippet/query para traer todos los resultados de una busqueda por taxonomia."
+	},
+	"WP-LIST-RESULTS": {
+		"prefix": "wp-list-results",
+		"body": [
+			"<?php if ($results->have_posts()) : ?>",
+			"	<?php while ($results->have_posts()) : $results->the_post(); ?>",
+			"		$1",
+			"	<?php endwhile; ?>",
+			"<?php else: ?>",
+			"<p class=\"no-one\">No se han encontrado resultados <i><?php echo 'para: '.$$s ?? ''; ?></i></p>",
+			"<?php endif; ?>"
+		],
+		"description": "Snippet para listar los resultados de la busqueda"
+	},
+	"TEMPLATE-PART": {
+		"prefix": "template-part",
+		"body": [
+			"<?php get_template_part('inc/$1');?>"
+		],
+		"description": "Snippet para partes repetidas en toda la web"
+	},
+	"LINK": {
+		"prefix": "link",
+		"body": [
+			"<a href=\"<?php echo esc_url(home_url('$1')); ?>\" title=\"$2\">$2</a>"
+		],
+		"description": "Snippet para generar link"
+	},
+	"WOO-MINI-CART": {
+		"prefix": "woo-mini-cart",
+		"body": [
+			"<?php echo woocommerce_mini_cart(); ?>"
+		],
+		"description": "Snippet para traer la estructura del mini cart de Woocommerce."
+	},
+	"USER-LOGGED": {
+		"prefix": "user-logged",
+		"body": [
+			"<?php if(is_user_logged_in()): ?>",
+			"$1",
+			"<?php else: ?>",
+			"$2",
+			"<?php endif; ?>"
+		],
+		"description": "Saber si el usuario está logeado o no."
 	},
 }
