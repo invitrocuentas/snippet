@@ -284,4 +284,19 @@
 		],
 		"description": "Saber si el usuario está logeado o no."
 	},
+	"SPLIDE": {
+		"prefix": "splide",
+		"body": [
+			"<div class=\"splide\" role=\"group\" id=\"$1\">",
+			"  	<div class=\"splide__track\">",
+			"		<ul class=\"splide__list\">",
+			"			<li class=\"splide__slide\">",
+			"				",
+			"			</li>",
+			"		</ul>",
+			"  	</div>",
+			"</div>"
+		],
+		"description": "Snippet de estructura basica de slider en Splide."
+	},
 }
